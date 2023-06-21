@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Include CSS stylesheets and JavaScript libraries if needed -->
+  </head>
+  <body>
+    <div class="card">
+      <div class="card-header">{{ title }}</div>
+      <div class="card-body">
+        <h5 class="card-title">Summary</h5>
+        <p class="card-text">{{ summary }}</p>
+        <a href="#readmore" class="btn btn-primary">Read More</a>
+      </div>
+    </div>
+
+    <div id="readmore" class="card mt-4">
+      <div class="card-header">Transcript</div>
+      <div class="card-body">
+        <p class="card-text">{{ transcript }}</p>
+        <a href="{{ video_url }}" class="btn btn-primary">Watch Video</a>
+      </div>
+    </div>
+
+    <!-- Additional HTML content if needed -->
+
+    <!-- Include JavaScript files if needed -->
+  </body>
+</html>
