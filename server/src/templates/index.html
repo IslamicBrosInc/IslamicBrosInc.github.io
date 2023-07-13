@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- Include CSS stylesheets and JavaScript libraries if needed -->
+    <title>Display Cards</title>
+    <link rel="stylesheet" type="text/css" href="..\static\style.css" />
+    <script src="script.js"></script>
   </head>
+
   <body>
-    <div class="card">
-      <div class="card-header">{{ title }}</div>
-      <div class="card-body">
-        <h5 class="card-title">Summary</h5>
-        <p class="card-text">{{ summary }}</p>
-        <a href="#readmore" class="btn btn-primary">Read More</a>
+    {% for card in cards %}
+    <div class="card-container">
+      <div class="card">
+        <div class="card-header">
+          <h2>{{ card.title }}</h2>
+        </div>
+        <div class="card-body">
+          <p class="transcript-preview">{{ card.transcript }}</p>
+          <p class="read-more">Read More</p>
+          <!-- <div class="full-transcript">{{ card.transcript }}</div> -->
+          <!-- <div class="video-container">
+            <iframe src="{{ card.vidembed }}"></iframe>
+          </div> -->
+        </div>
+        <!-- <p class="cardID">Card ID: {{ card.cardID }}</p> -->
       </div>
     </div>
 
-    <div id="readmore" class="card mt-4">
-      <div class="card-header">Transcript</div>
-      <div class="card-body">
-        <p class="card-text">{{ transcript }}</p>
-        <a href="{{ video_url }}" class="btn btn-primary">Watch Video</a>
-      </div>
-    </div>
-
-    <!-- Additional HTML content if needed -->
-
-    <!-- Include JavaScript files if needed -->
+    {% endfor %}
   </body>
 </html>

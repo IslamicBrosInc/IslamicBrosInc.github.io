@@ -1,0 +1,22 @@
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 50px;
+    padding-bottom: .73141587%;
+    margin: auto;
+    text-align: center;
+    justify-items: center;
+    align-items: center;
+}
+
+
+.card {
+    border: solid purple 7px;
+    border-radius: 70px;
+    text-align: center;
+    font-size: 30px;
+    /* padding-top:50%; */
+    background-color: lightcoral;
+    aspect-ratio: 1;
+    width: 100%;
+}
