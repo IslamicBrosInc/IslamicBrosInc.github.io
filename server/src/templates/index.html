@@ -7,24 +7,27 @@
   </head>
 
   <body>
-    {% for card in cards %}
     <div class="card-container">
-      <div class="card">
-        <div class="card-header">
-          <h2>{{ card.title }}</h2>
+      {% for card in cards %}
+
+      <button>
+        <div class="card">
+          <div class="card-header">
+            <h2>{{ card.title }}</h2>
+          </div>
         </div>
-        <div class="card-body">
-          <p class="transcript-preview">{{ card.transcript }}</p>
-          <p class="read-more">Read More</p>
+
+        <div id="modal-content" class="card-body">
+          <!-- <p class="transcript-preview">{{ card.transcript }}</p> -->
+          <!-- <p class="read-more">Read More</p> -->
           <!-- <div class="full-transcript">{{ card.transcript }}</div> -->
           <!-- <div class="video-container">
-            <iframe src="{{ card.vidembed }}"></iframe>
-          </div> -->
+              <iframe src="{{ card.vidembed }}"></iframe>
+            </div> -->
         </div>
         <!-- <p class="cardID">Card ID: {{ card.cardID }}</p> -->
-      </div>
+      </button>
+      {% endfor %}
     </div>
-
-    {% endfor %}
   </body>
 </html>

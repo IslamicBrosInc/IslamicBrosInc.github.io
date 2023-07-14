@@ -27,7 +27,7 @@ collection = db['cards']
 def run():
     cards = collection.find()
     urls = urlcollection.find()
-    card = collection.find_one()
+    card = collection.find_one({"cardID":"0"})
 
     # Render template with data
     return render_template('index.html',cards=cards, urls=urls,card=card)
