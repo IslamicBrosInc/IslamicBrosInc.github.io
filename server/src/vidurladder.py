@@ -25,7 +25,7 @@ videos = scrapetube.get_channel("UCWsdcrre0WbCWML_PnuzoAg")
 
 for video in videos:
     url = "https://www.youtube.com/watch?v="+str(video['videoId'])
-    session = HTMLSession()
+    session = HTMLSession()                                                                             
     yt = YouTube(url)
     length = yt.length
     resp = session.get(url)
@@ -42,7 +42,7 @@ for video in videos:
 # CODE TO UPDATE/ADD FIELDS TO PREXISTING DATA IN DATABASE
 # urls = urlcollection.find()
 # for oneurl in urls:
-#     currurl = oneurl['url']
+#     currurl = oneurl['url']                           
 #     vidID = currurl[32:len(currurl)]
 #     embed = "https://www.youtube.com/embed/" + vidID
 #     filter = { 'url' : currurl }

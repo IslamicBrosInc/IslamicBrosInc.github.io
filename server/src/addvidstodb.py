@@ -1,4 +1,4 @@
-from Get_Video_Explanation import *
+from getenglish import *
 from flask_pymongo import PyMongo
 from pymongo import MongoClient
 from flask import *
@@ -18,7 +18,7 @@ urldbb = client['urls']
 urlcollection = urldbb['url']
 videocollection = db['videos']
 cardcollection = db['cards']
-
+englishcollection = db['englishcards']
 
 def setup(FatwaCard):
     FatwaCard.set_title_and_filename()
@@ -31,48 +31,36 @@ def setup(FatwaCard):
 #access video collection
 videos = urlcollection.find()
 
-# ctr=0
-# for video in videos:
-#     ctr+=1
-#     urlID = video.get('cardID')
-#     url = video.get('url')
+ctr=0
+for video in videos:
+    ctr+=1
+    urlID = video.get('cardID')
+    url = video.get('url')
 
-#     card = FatwaCard(url)
-#     setup(card)
-#     title = card.get_title_and_filename()[0]
-#     # summary = card.get_summary()
-#     transcript_text = card.get_transcript()
-#     url = card.url
-#     betastatus = card.get_betastatus()
-#     card.set_cardID(ctr)
-#     author = card.author
-#     video_data = {
-#         'title': title,
-#         # 'summary': summary,
-#         'transcript': transcript_text,
-#         'video_url': url,
-#         'author':author,
-#         'cardID':ctr,
-#         'beta_status':betastatus
-#     }
-#     cardcollection.insert_one(video_data)
-#     print(card.get_cardID())
+    card = FatwaCard(url)
+    setup(card)
+    title = card.get_title_and_filename()[0]
+    # summary = card.get_summary()
+    transcript_text = card.get_transcript()
+    url = card.url
+    betastatus = card.get_betastatus()
+    card.set_cardID(ctr)
+    author = card.author
+    video_data = {
+        'title': title,
+        # 'summary': summary,
+        'transcript': transcript_text,
+        'video_url': url,
+        'author':author,
+        'cardID':ctr,
+        'beta_status':betastatus
+    }
+    englishcollection.insert_one(video_data)
+    print(card.get_cardID())
 
-#     if urlID ==200:
-#         break;
+    if urlID ==200:
+        break;
 
-
-video_data = {
-    'title': "is arm haram?",
-    # 'summary': summary,
-    'transcript': "no he is cute",
-    'video_url': "www.amr.com",
-    'author':"abdolla",
-    'cardID':"0",
-    'beta_status':False
-}
-
-cardcollection.insert_one(video_data)
 
 
 # cards = cardcollection.find()
