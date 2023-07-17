@@ -4,9 +4,14 @@
     <title>Display Cards</title>
     <link rel="stylesheet" type="text/css" href="..\static\style.css" />
     <script src="script.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+    />
   </head>
 
   <body>
+    <!-- <h1 class="title">Sheikh Query</h1> -->
     <div class="card-container">
       {% for card in cards %}
 
@@ -30,10 +35,18 @@
 
           <!-- <p class="transcript-preview">{{ card.transcript }}</p> -->
           <!-- <p class="read-more">Read More</p> -->
+
+          <div>Question: {{card.title}}</div>
+          <br />
+          <div>Answer:</div>
           <div class="full-transcript">{{ card.transcript }}</div>
-          <!-- <div class="video-container">
-            <iframe src="{{ card.vidembed }}"></iframe>
-          </div> -->
+          <br />
+
+          <p>Original Video:</p>
+          <div class="video-container">
+            <iframe loading="lazy" src="{{ card.vidembed }}"></iframe>
+          </div>
+          <p class="author">Author : {{ card.author }}</p>
         </div>
       </div>
 

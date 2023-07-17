@@ -17,7 +17,7 @@ urldbb = client['urls']
 urlcollection = urldbb['url']
 videocollection = db['videos']
 collection = db['cards']
-
+englishcollection = db['englishcards']
 
 
 
@@ -25,7 +25,7 @@ collection = db['cards']
                         
 @app.route('/', methods=['GET', 'POST'])
 def run():
-    cards = collection.find()
+    cards = englishcollection.find()
     urls = urlcollection.find()
     card = collection.find_one({"cardID":"0"})
 

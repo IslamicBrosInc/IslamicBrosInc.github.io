@@ -1,3 +1,9 @@
+body{
+    background-color: #110620;
+    color: #FFFFFF;
+    font-size: 40px;
+}
+
 .card-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px, 370px));
@@ -9,17 +15,35 @@
     justify-content: center;
 }
 
+
+h1{
+    text-align: center;
+    font-family: inter,sans-serif;
+}
+
+.author{
+    text-align: right;
+    font-size:15px;
+}
 .card {
-    border: solid purple;
     border-radius: 60px;
-    background-color: lightcoral;
+    background-color:#6544e9;
     aspect-ratio: 1;
     width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: #f9fafb;
+    font-family: inter,sans-serif;
+    font-size: 16px;
 
+}
+
+.card:hover{
+    background-color: #4b32ae;
+    transition-delay: .07s;
+    cursor: pointer;
 }
 
 .modal {
@@ -43,15 +67,20 @@
     /* Fallback color */
     background-color: rgba(0, 0, 0, 0.4);
     /* Black w/ opacity */
+
 }
 
 /* Modal Content */
 .modal-content {
-    background-color: #fefefe;
+    background-color: #130c22;
     margin: auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 5px solid #888;
     width: 80%;
+    font-family: inter,sans-serif;
+    font-size: 30px;
+    border-radius: 60px;
+    padding: 35px;
 }
 
 /* The Close Button */
@@ -70,7 +99,7 @@
 }
 
 .card-header {
-    font-size: 20px;
+    font-size: 16px;
     display: flex;
     align-items: center;
     /* Center vertically */
@@ -82,7 +111,7 @@
 
 button{
     border:none;
-    background-color: white;
+    background-color: #110620;
 }
 /* 
 .transcript-preview {
