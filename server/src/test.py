@@ -6,11 +6,11 @@ from youtube_transcript_api import YouTubeTranscriptApi
 import json as json
 import os
 import translators as ts
+import scrapetube
 
 # url = "https://www.youtube.com/watch?v=-_JzRklw9j8&ab_channel=assimalhakeem"
 
 # transcript = ""
-
 
 # try:
 #         srt = YouTubeTranscriptApi.list_transcripts(url[32:len(url)])
@@ -68,10 +68,40 @@ import translators as ts
 # print(test)
 
 
-try:
-    print(3/0)
-except ZeroDivisionError:
-        try:
-                print(sqrt(-2))
-        except:
-                print("ok")
+# try:
+#     print(3/0)
+# except ZeroDivisionError:
+#         try:
+#                 print(sqrt(-2))
+#         except:
+#                 print("ok")
+
+
+# channel = scrapetube.get_channel("UCbwFrxI0u_5vi9wwD_Ni97g")
+
+# ctr = 0
+# ctr_for_manual = 0
+# for video in channel:
+#         tslist = YouTubeTranscriptApi.list_transcripts(video['videoId'])
+#         ctr+=1
+#         for transcript in tslist:
+#                 try:
+#                         test = transcript.is_generated
+#                         if test == False:
+#                                 ctr_for_manual+=1
+#                                 print(video['videoId'],transcript.language_code)
+#                 except:
+#                         print("failed")
+#                         pass
+#         print(str(ctr) + " " + str(ctr_for_manual))
+
+srt = YouTubeTranscriptApi.list_transcripts("Euv70pmSROE")
+
+for script in srt:
+        if(script.is_generated==False):
+                srt = script.translate('en').fetch()
+
+transcript_text = ""
+for line in srt:
+        transcript_text+=line['text']
+print(transcript_text)

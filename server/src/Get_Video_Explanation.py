@@ -13,7 +13,7 @@ import translators
 import youtube_transcript_api
 
 openai.api_key = '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'
-bad_words = ("assim alhakeem","assim al hakeem", "- assim al hakeem","-assim al hakeem","Assim al hakeem","- Assim al hakeem", "assim", "- assim","-assim", "Assim")
+bad_words = ("Sheikh Assim Al Hakeem","assim alhakeem","assim al hakeem", "- assim al hakeem","-assim al hakeem","Assim al hakeem","- Assim al hakeem", "assim", "- assim","-assim", "Assim","JAL")
 bad_chars = ("\ ","/",":","*","?","<", ">" ,"|","-")
 
 class FatwaCard:

@@ -13,11 +13,11 @@ import translators
 import youtube_transcript_api
 
 openai.api_key = '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'
-bad_words = ("assim alhakeem","assim al hakeem", "- assim al hakeem","-assim al hakeem","Assim al hakeem","- Assim al hakeem", "assim", "- assim","-assim", "Assim")
+bad_words = ("Sheikh Assim Al Hakeem","assim alhakeem","assim al hakeem", "- assim al hakeem","-assim al hakeem","Assim al hakeem","- Assim al hakeem", "assim", "- assim","-assim", "Assim","JAL")
 bad_chars = ("\ ","/",":","*","?","<", ">" ,"|","-")
 
 class FatwaCard:
-  def __init__(self,url):
+  def __init__(self,url,uncleanedtitle):
       self.url = url
       self.title = None
       self.filename=None
@@ -26,24 +26,33 @@ class FatwaCard:
       self.betastatus = False
       self.id = 0
       self.author = "Assim Al Hakeem"
+      self.uncleanedtitle= uncleanedtitle
+      self.isQuestion = False
     
   def set_title_and_filename(self):
-      session = HTMLSession()
-      resp = session.get(self.url)
-      soup = bs(resp.html.html, "html.parser")
-      uncleanedtitle = soup.find("meta", itemprop="name")['content']
-      title = self.cleaup_title(uncleanedtitle)          
+    #   code to get title from web
+    #   session = HTMLSession()
+    #   resp = session.get(self.url)
+    #   soup = bs(resp.html.html, "html.parser")
+    #   uncleanedtitle = soup.find("meta", itemprop="name")['content']
+
+      title = self.cleaup_title(self.uncleanedtitle)          
       self.filename = f"{title}.mp4"
-      title+="?"
+      if "?" in self.uncleanedtitle:
+          title+="?"
+          self.isQuestion = True
+          
       self.title = title
 
   def set_transcript(self):
 
     try:
       srt = YouTubeTranscriptApi.list_transcripts(self.url[32:len(self.url)])
+      srt = srt.find_manually_created_transcript(['en'])
 
       for script in srt:
-                srt = script.translate('en').fetch()
+            if(script.is_generated==False):
+                srt = script.find_manually_created_transcript(['en']).fetch()
 
       transcript_text = ""
       for line in srt:
@@ -65,12 +74,14 @@ class FatwaCard:
   def cleaup_title(self,title): 
       for charbad in bad_chars:
           for chartest in title:
-              title = title.replace(charbad," ")
+              title = title.replace(charbad,"")
 
       for bad_word in bad_words:
         if bad_word in title:
               title = title.replace(bad_word, "")
               break;
+      if "JAL" in title:
+          title = title.replace("JAL","")
 
       title = title.rstrip()
       return title
