@@ -18,14 +18,14 @@ urlcollection = urldbb['url']
 videocollection = db['videos']
 collection = db['cards']
 englishcollection = db['englishcards']
-
+laymancollection = db['laymanenglish']
 
 
 
                         
 @app.route('/', methods=['GET', 'POST'])
 def run():
-    cards = englishcollection.find()
+    cards = laymancollection.find()
     urls = urlcollection.find()
     card = collection.find_one({"cardID":"0"})
 

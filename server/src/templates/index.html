@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Display Cards</title>
+    <title>Sheikh Query</title>
     <link rel="stylesheet" type="text/css" href="..\static\style.css" />
     <script src="script.js"></script>
     <link
@@ -12,6 +12,24 @@
 
   <body>
     <!-- <h1 class="title">Sheikh Query</h1> -->
+
+
+    <nav>
+      <a href="http://127.0.0.1:8080/">
+        <img class="logo" src="https://cdn.discordapp.com/attachments/202809769076064256/1133127086492627065/68c4d8f7-1935-4f80-9438-8afcb4fc47fb.png" alt="SheikhQuery logo">
+      </a>
+      <ul id="mainMenu">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    
+
     <div class="card-container">
       {% for card in cards %}
 
@@ -44,7 +62,7 @@
 
           <p>Original Video:</p>
           <div class="video-container">
-            <iframe loading="lazy" src="{{ card.vidembed }}"></iframe>
+            <!-- <iframe loading="lazy" src="{{ card.embed }}"></iframe> -->
           </div>
           <p class="author">Author : {{ card.author }}</p>
         </div>

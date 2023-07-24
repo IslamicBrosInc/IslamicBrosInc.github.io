@@ -89,7 +89,7 @@ import scrapetube
 #                         test = transcript.is_generated
 #                         if test == False:
 #                                 ctr_for_manual+=1
-#                                 print(video['videoId'],transcript.language_code)
+#                                 print(video['videoId'],transcript.language_inde)
 #                 except:
 #                         print("failed")
 #                         pass
