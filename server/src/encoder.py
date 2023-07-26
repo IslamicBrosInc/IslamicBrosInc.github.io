@@ -1,5 +1,5 @@
 from bson import ObjectId
-from json import JSONEncoder
+from flask.json import JSONEncoder
 
 class CustomJSONEncoder(JSONEncoder):
     def default(self, obj):
