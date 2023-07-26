@@ -6,9 +6,12 @@ from flask.json import jsonify
 import simplejson as json 
 import os
 import scrapetube
+import re
+from encoder import CustomJSONEncoder
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/cardbase"
+app.json_encoder = CustomJSONEncoder
 mongo = PyMongo(app)
 client = MongoClient('localhost', 27017)
 db = client['cardbase'] 
@@ -21,17 +24,34 @@ englishcollection = db['englishcards']
 laymancollection = db['laymanenglish']
 
 
-
                         
 @app.route('/', methods=['GET', 'POST'])
 def run():
-    cards = laymancollection.find()
-    urls = urlcollection.find()
-    card = collection.find_one({"cardID":"0"})
+    if request.method == 'POST':
+        data = request.get_json()
+        query = data.get("query", "")
+        print(query)
+        regex_pattern = re.compile(f".*{query}.*", re.IGNORECASE)
 
-    # Render template with data
-    return render_template('index.html',cards=cards, urls=urls,card=card)
-# title=title, summary=summary, transcript=transcript_text, video_url=url
+        search = {"title": {"$regex": query, "$options": "i"}}
+        results = laymancollection.find(search)
+        print("results", results)
+
+        search_results = list(results)
+
+        print(search_results)
+
+        return jsonify(search_results)
+    else:
+        cards = laymancollection.find()
+
+        card_list = list(cards)
+        return render_template('index.html', cards=card_list)
+
+
+
+
+
 
 
 if __name__ == '__main__':
@@ -39,4 +59,4 @@ if __name__ == '__main__':
     # documents = collection.find()
     # for document in documents:
     #     print(document)
-        
+    
