@@ -24,87 +24,54 @@
 </div>
 
 
+
 <div class="card-container">
-    {% if query %}
-        {% if cards|length == 0 %}
-            <p>No results found.</p>
-        {% else %}
-            {% for card in cards %}
-                <script type="text/javascript">
-                    var tmgan = "{{ card.cardID }}";
-                </script>
-
-                <button>
-                    <div class="card">
-                        <div class="card-header">
-                            <h2>{{ card.title }}</h2>
-                        </div>
-                    </div>
-
-                    <!-- <p class="cardID">Card ID: {{ card.cardID }}</p> -->
-                </button>
-
-                <div id="tmgan" class="modal">
-                    <div class="modal-content" class="card-body">
-                        <span class="close">&times;</span>
-
-                        <!-- <p class="transcript-preview">{{ card.transcript }}</p> -->
-                        <!-- <p class="read-more">Read More</p> -->
-
-                        <div>Question: {{ card.title }}</div>
-                        <br/>
-                        <div>Answer:</div>
-                        <div class="full-transcript">{{ card.transcript }}</div>
-                        <br/>
-
-                        <p>Original Video:</p>
-                        <div class="video-container">
-                            <!-- <iframe loading="lazy" src="{{ card.embed }}"></iframe> -->
-                        </div>
-                        <p class="author">Author : {{ card.author }}</p>
-                    </div>
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% else %}
+    {% if query is none %}
         {% for card in cards %}
-            <script type="text/javascript">
-                var tmgan = "{{ card.cardID }}";
-            </script>
+        <script type="text/javascript">
+            var tmgan = "{{ card.cardID }}";
+        </script>
 
-            <button>
-                <div class="card">
-                    <div class="card-header">
-                        <h2>{{ card.title }}</h2>
-                    </div>
-                </div>
-
-                <!-- <p class="cardID">Card ID: {{ card.cardID }}</p> -->
-            </button>
-
-            <div id="tmgan" class="modal">
-                <div class="modal-content" class="card-body">
-                    <span class="close">&times;</span>
-
-                    <!-- <p class="transcript-preview">{{ card.transcript }}</p> -->
-                    <!-- <p class="read-more">Read More</p> -->
-
-                    <div>Question: {{ card.title }}</div>
-                    <br/>
-                    <div>Answer:</div>
-                    <div class="full-transcript">{{ card.transcript }}</div>
-                    <br/>
-
-                    <p>Original Video:</p>
-                    <div class="video-container">
-                        <!-- <iframe loading="lazy" src="{{ card.embed }}"></iframe> -->
-                    </div>
-                    <p class="author">Author : {{ card.author }}</p>
+        <button>
+            <div class="card">
+                <div class="card-header">
+                    <h2>{{ card.title }}</h2>
                 </div>
             </div>
-        {% endfor %}
-    {% endif %}
-</div>
 
+            <!-- <p class="cardID">Card ID: {{ card.cardID }}</p> -->
+        </button>
+
+        <div id="tmgan" class="modal">
+            <div class="modal-content" class="card-body">
+                <span class="close">&times;</span>
+
+                <!-- <p class="transcript-preview">{{ card.transcript }}</p> -->
+                <!-- <p class="read-more">Read More</p> -->
+
+                <div>Question: {{ card.title }}</div>
+                <br/>
+                <div>Answer:</div>
+                <div class="full-transcript">{{ card.transcript }}</div>
+                <br/>
+
+                <p>Original Video:</p>
+                <div class="video-container">
+                    <!-- <iframe loading="lazy" src="{{ card.embed }}"></iframe> -->
+                </div>
+                <p class="author">Author : {{ card.author }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        {% if cards|length == 0 %}
+            <p>No results found.</p>
+        {%else%}
+            <div class="search-results-container"></div>
+        {% endif %}
+    {% endif %}
+
+
+</div>
 </body>
 </html>

@@ -63,8 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
   searchForm.addEventListener("submit", function (event) {
     event.preventDefault();
     const query = searchInput.value.trim();
-
-    // Perform an AJAX request to the server to handle the search
+  
     fetch("/", {
       method: "POST",
       headers: {
@@ -74,10 +73,8 @@ document.addEventListener("DOMContentLoaded", function () {
     })
       .then((response) => response.json())
       .then((data) => {
-        
-        resultsContainer.innerHTML = "";
-        // resultsContainer.innerHTML = ""; // Clear previous search results
-
+        resultsContainer.innerHTML = ""; // Clear previous search results
+  
         if (data.length === 0) {
           resultsContainer.innerHTML = "<p>No results found.</p>";
         } else {
@@ -89,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
             titleHeading.textContent = card.title;
             const descriptionPara = document.createElement("p");
             descriptionPara.textContent = card.description;
-
+  
             cardDiv.appendChild(titleHeading);
             cardDiv.appendChild(descriptionPara);
             resultsContainer.appendChild(cardDiv);
@@ -101,4 +98,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // ... Your existing modal and other JavaScript code ...
 });
-

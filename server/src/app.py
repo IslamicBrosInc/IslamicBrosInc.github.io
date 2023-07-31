@@ -7,11 +7,11 @@ import simplejson as json
 import os
 import scrapetube
 import re
-from encoder import CustomJSONEncoder
+# from encoder import CustomJSONEncoder
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/cardbase"
-app.json_encoder = CustomJSONEncoder
+# app.json_encoder = CustomJSONEncoder
 mongo = PyMongo(app)
 client = MongoClient('localhost', 27017)
 db = client['cardbase'] 
@@ -38,15 +38,21 @@ def run():
         print("results", results)
 
         search_results = list(results)
+        # # print('jzoniy',jsonify(search_results))
 
         print(search_results)
 
-        return jsonify(search_results)
-    else:
-        cards = laymancollection.find()
+        # return(search_results)
+ 
+        # return jsonify(search_results)
 
+        return("ok")
+    else:
+        print('tmgan')
+        cards = laymancollection.find() 
         card_list = list(cards)
-        return render_template('index.html', cards=card_list)
+
+        return render_template('index.html',cards=card_list,query=None)
 
 
 
