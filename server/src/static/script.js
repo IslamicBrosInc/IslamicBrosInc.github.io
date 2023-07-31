@@ -56,14 +56,13 @@ document.addEventListener("DOMContentLoaded", function () {
   // Get the search form and search input field
   const searchForm = document.getElementById("search-form");
   const searchInput = document.getElementById("search-input");
-  const resultsContainer = document.getElementById("search-results-container"); // New container for displaying search results
-  
+  const resultsContainer = document.querySelector(".card-container");
 
   // Add an event listener to the search form for form submission
   searchForm.addEventListener("submit", function (event) {
     event.preventDefault();
     const query = searchInput.value.trim();
-  
+
     fetch("/", {
       method: "POST",
       headers: {
@@ -74,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((response) => response.json())
       .then((data) => {
         resultsContainer.innerHTML = ""; // Clear previous search results
-  
+
         if (data.length === 0) {
           resultsContainer.innerHTML = "<p>No results found.</p>";
         } else {
@@ -85,8 +84,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const titleHeading = document.createElement("h3");
             titleHeading.textContent = card.title;
             const descriptionPara = document.createElement("p");
-            descriptionPara.textContent = card.description;
-  
+            descriptionPara.textContent = card.transcript;
+
             cardDiv.appendChild(titleHeading);
             cardDiv.appendChild(descriptionPara);
             resultsContainer.appendChild(cardDiv);

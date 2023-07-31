@@ -1,8 +1,9 @@
-# from bson import ObjectId
-# from flask.json import JSONEncoder
+from flask import Flask, request, jsonify
+from bson import ObjectId
+import json
 
-# class CustomJSONEncoder(JSONEncoder):
-#     def default(self, obj):
-#         if isinstance(obj, ObjectId):
-#             return str(obj)
-#         return super().default(obj)
+class CustomJSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        return super().default(o)

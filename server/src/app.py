@@ -24,6 +24,18 @@ englishcollection = db['englishcards']
 laymancollection = db['laymanenglish']
 
 
+# Create a custom JSON encoder to handle ObjectId serialization
+class CustomJSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        return super().default(o)
+
+# Initialize your Flask app
+app = Flask(__name__)
+
+# Set the custom JSON encoder for your Flask app
+app.json_encoder = CustomJSONEncoder
                         
 @app.route('/', methods=['GET', 'POST'])
 def run():
@@ -35,24 +47,22 @@ def run():
 
         search = {"title": {"$regex": query, "$options": "i"}}
         results = laymancollection.find(search)
-        print("results", results)
 
-        search_results = list(results)
-        # # print('jzoniy',jsonify(search_results))
+        # Convert MongoDB documents to Python dictionaries
+        search_results = [result for result in results]
 
-        print(search_results)
+        # Serialize ObjectId to string manually
+        for result in search_results:
+            result["_id"] = str(result["_id"])
 
-        # return(search_results)
- 
-        # return jsonify(search_results)
-
-        return("ok")
+        return jsonify(search_results)
     else:
         print('tmgan')
-        cards = laymancollection.find() 
-        card_list = list(cards)
+        cards = laymancollection.find()
+        card_list = [card for card in cards]
 
-        return render_template('index.html',cards=card_list,query=None)
+        return render_template('index.html', cards=card_list, query=None)
+
 
 
 

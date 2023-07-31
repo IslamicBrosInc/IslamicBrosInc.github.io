@@ -98,7 +98,7 @@ body{
 }
 
 .card:hover{
-    background-color: #553236;
+    background-color: #8e3642;
     transition-delay: .07s;
     cursor: pointer;
 }
