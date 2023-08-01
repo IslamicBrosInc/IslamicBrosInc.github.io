@@ -34,19 +34,27 @@ bad_words = ("Sheikh Assim Al Hakeem","assim alhakeem","assim al hakeem", "- ass
 bad_chars = ("\ ","/",":","*","?","<", ">" ,"|","-")
 
 
-def cleaup_title(title): 
-    for charbad in bad_chars:
-        for chartest in title:
-            title = title.replace(charbad,"")
+def cleanup_transcript(title): 
+    # for charbad in bad_chars:
+    #     for chartest in title:
+    #         title = title.replace(charbad,"")
 
-    for bad_word in bad_words:
-        if bad_word in title:
-                title = title.replace(bad_word, "")
-                break;
+    # for bad_word in bad_words:
+    #     if bad_word in title:
+    #             title = title.replace(bad_word, "")
+    #             break;
     if "JAL" in title:
         title = title.replace("JAL","")
     if "foreign" in title:
         title = title.replace("foreign","")
+    if "Consider Subscribing 😄" in title:
+        title = title.replace("Consider Subscribing 😄","")
+        print(title)
+    if "Consider subscribing." in title:
+        title = title.replace("Consider Subscribing!!! 😄","")
+    if "consider subscribing" in title:
+        title = title.replace("Consider Subscribing","")
+        
 
 
     title = title.rstrip()
@@ -66,8 +74,7 @@ def set_transcript(code):
     for line in srt:
             transcript_text+=line['text']
     transcript_text = transcript_text
-    transcript_text = cleaup_title(transcript_text)
-    print("text : ",transcript_text)
+    transcript_text = cleanup_transcript(transcript_text)
     return transcript_text
 
 
@@ -79,11 +86,51 @@ for card in cards:
     code = url[32:len(url)]
     id = card.get('cardID')
     status = card.get('beta_status')
-    transcript_text = set_transcript(code)
-    filter = { 'cardID' : id }
-    setts = { "$set" : { 'transcript': transcript_text } }
-    if status!=True:
-         laymaneng.update_one(filter,setts)
+    old = card.get('transcript')
+    if old == "":
+        try:
+            transcript_text = set_transcript(code)
+            print(transcript_text)
+            print(id)
+            filter = { 'cardID' : id }
+            setts = { "$set" : { 'transcript': transcript_text } }
+            laymaneng.update_one(filter,setts)
+        except:
+            continue
+    else:
+        continue
+
+    # if "counsel" and "[Music]" in transcript_text:
+    #     index_of_music = transcript_text.find("[Music]")
+    #     transcript_text = transcript_text[:index_of_music]
+    #     filter = { 'cardID' : id }
+    #     setts = { "$set" : { 'transcript': transcript_text } }
+    #     laymaneng.update_one(filter,setts)
+    
+    # if "and have you ever taken a counseling session" in transcript_text:
+    #     index = transcript_text.find("and have you ever taken a counseling session")
+    #     transcript_text = transcript_text[:index]
+    #     filter = { 'cardID' : id }
+    #     setts = { "$set" : { 'transcript': transcript_text } }
+    #     laymaneng.update_one(filter,setts)
+
+    # if "And have you ever taken a" in transcript_text:
+    #     index = transcript_text.find("And have you ever taken a")
+    #     transcript_text = transcript_text[:index]
+    #     filter = { 'cardID' : id }
+    #     setts = { "$set" : { 'transcript': transcript_text } }
+    #     laymaneng.update_one(filter,setts)
+
+    # if "If you have any questions, please contact me at" in transcript_text:
+    #     index = transcript_text.find("If you have any questions, please contact me at")
+    #     transcript_text = transcript_text[:index]
+    #     filter = { 'cardID' : id }
+    #     setts = { "$set" : { 'transcript': transcript_text } }
+    #     laymaneng.update_one(filter,setts)
+
+   
+
+
 
 
 # cards = laymaneng.find()
