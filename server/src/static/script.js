@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // END MODAL STUFF
 
 
+
 //START SEARCH STUFF
   // Get the search form and search input field
   const searchForm = document.getElementById("search-form");
@@ -78,22 +79,117 @@ document.addEventListener("DOMContentLoaded", function () {
           resultsContainer.innerHTML = "<p>No results found.</p>";
         } else {
           data.forEach((card) => {
-            // Create HTML elements to display each search result card
-            const cardDiv = document.createElement("div");
-            cardDiv.classList.add("card");
-            const titleHeading = document.createElement("h3");
-            titleHeading.textContent = card.title;
-            const descriptionPara = document.createElement("p");
-            descriptionPara.textContent = card.transcript;
+            resultsContainer.innerHTML += `
+            <button class="card-btn" data-title="${card.title}" data-transcript="${card.transcript}" data-embed="${card.embed}" data-author="${card.author}">
+              <div class="card">
+                <div class="card-header">
+                  <h2>${card.title}</h2>
+                </div>
+              </div>
+            </button>
 
-            cardDiv.appendChild(titleHeading);
-            cardDiv.appendChild(descriptionPara);
-            resultsContainer.appendChild(cardDiv);
+            <div class="modal">
+              <div class="modal-content" class="card-body">
+                <span class="close">&times;</span>
+                <div>Question: ${card.title}</div>
+                <br/>
+                <div>Answer:</div>
+                <div class="full-transcript">${card.transcript}</div>
+                <br/>
+                <p>Original Video:</p>
+                <div class="video-container">
+                  <!-- <iframe loading="lazy" src="${card.embed}"></iframe> -->
+                </div>
+                <p class="author">Author: ${card.author}</p>
+              </div>
+            </div> 
+          `;
           });
         }
       })
       .catch((error) => console.error("Error performing search:", error));
   });
 
-  // ... Your existing modal and other JavaScript code ...
-});
+  // Event listener for cards (including search results)
+  resultsContainer.addEventListener("click", function (event) {
+    const target = event.target;
+
+    // Check if the click target is a card button or its parent (in case the click happened on the card itself)
+    const cardButton = target.closest(".card-btn");
+    if (cardButton) {
+      const modal = cardButton.nextElementSibling; // Get the next element, which is the modal
+      const modalContent = modal.querySelector(".modal-content");
+      const title = cardButton.dataset.title;
+      const transcript = cardButton.dataset.transcript;
+      const embed = cardButton.dataset.embed;
+      const author = cardButton.dataset.author;
+
+      modalContent.innerHTML = `
+        <span class="close">&times;</span>
+        <div>Question: ${title}</div>
+        <br/>
+        <div>Answer:</div>
+        <div class="full-transcript">${transcript}</div>
+        <br/>
+        <p>Original Video:</p>
+        <div class="video-container">
+          <!-- <iframe loading="lazy" src="$"></iframe> -->
+        </div>
+        <p class="author">Author: ${author}</p>
+      `;
+
+      modal.style.display = "block";
+    }
+  });
+
+  // Event listener for closing the modal (including search results modal)
+  document.addEventListener("click", function (event) {
+    if (event.target.classList.contains("close")) {
+      const modal = event.target.closest(".modal");
+      modal.style.display = "none";
+    }
+  });
+
+
+  // Pagination variables
+  const cardsPerPage = 30;
+  let currentPage = 1;
+  const cards = document.querySelectorAll(".card-btn");
+  const numPages = Math.ceil(cards.length / cardsPerPage);
+  const prevLink = document.querySelector(".prev");
+  const nextLink = document.querySelector(".next");
+
+  function showPage(pageNumber) {
+    const startIndex = (pageNumber - 1) * cardsPerPage;
+    const endIndex = startIndex + cardsPerPage;
+    cards.forEach((card, index) => {
+      card.style.display = index >= startIndex && index < endIndex ? "block" : "none";
+    });
+  }
+
+  function updatePagination() {
+    prevLink.style.display = currentPage === 1 ? "none" : "inline";
+    nextLink.style.display = currentPage === numPages ? "none" : "inline";
+  }
+
+  // Show the initial page
+  showPage(currentPage);
+  updatePagination();
+
+  // Event listener for previous and next links
+  prevLink.addEventListener("click", function (event) {
+    event.preventDefault();
+    currentPage--;
+    showPage(currentPage);
+    updatePagination();
+  });
+
+  nextLink.addEventListener("click", function (event) {
+    event.preventDefault();
+    currentPage++;
+    showPage(currentPage);
+    updatePagination();
+  });
+
+  
+})
