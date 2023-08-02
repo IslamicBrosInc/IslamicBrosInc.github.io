@@ -1,4 +1,3 @@
-from Get_Video_Explanation import *
 from flask_pymongo import PyMongo
 from pymongo import MongoClient
 from flask import *
@@ -38,10 +37,10 @@ def run():
     if request.method == 'POST':
         data = request.get_json()
         query = data.get("query", "")
-        print(query)
+        # print(query)
         regex_pattern = re.compile(f".*{query}.*", re.IGNORECASE)
 
-        search = {"title": {"$regex": query, "$options": "i"}}
+        search = {"transcript": {"$regex": query, "$options": "i"}}
         results = laymancollection.find(search)
 
         # Convert MongoDB documents to Python dictionaries
@@ -53,7 +52,7 @@ def run():
 
         return jsonify(search_results)
     else:
-        print('tmgan')
+        # print('tmgan')
         cards = laymancollection.find()
         card_list = [card for card in cards]
 
