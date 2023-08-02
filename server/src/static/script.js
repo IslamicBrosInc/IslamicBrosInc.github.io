@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <br/>
         <p>Original Video:</p>
         <div class="video-container">
-          <!-- <iframe loading="lazy" src="$"></iframe> -->
+          <iframe loading="lazy" src="${embed}"></iframe>
         </div>
         <p class="author">Author: ${author}</p>
       `;
